@@ -31,14 +31,31 @@ modelo_rede_neural.fit(imagens_para_treino,train_labels,epochs=5)
 perda_no_teste, acuracia_no_teste = modelo_rede_neural.evaluate(test_images,test_labels)
 print("Perda no Teste:",perda_no_teste,"Acuracia no teste:",acuracia_no_teste)
 
-from random import *
-quantidade_itens_predicao = 2
-randint(100,1000)
-numero_aleatorio = randint(0, (len(test_images)-quantidade_itens_predicao) )
-predicao = modelo_rede_neural.predict(test_images[numero_aleatorio:numero_aleatorio+quantidade_itens_predicao])
-for i in range(quantidade_itens_predicao):
+predicao = modelo_rede_neural.predict(test_images)
+
+"""
+#Muito Tempo, muito exemplo para plotar
+for i in enumerate(predicao):
   plt.grid(False)
-  plt.imshow(test_images[i],cmap=plt.cm.binary)
-  plt.title("Classe:"+nomes_das_classes[test_labels[i]])
-  plt.xlabel("Predicao:"+nomes_das_classes[np.argmax(predicao[i])])
+  plt.imshow(test_images[i[0]],cmap=plt.cm.binary)
+  plt.title("Classe:"+nomes_das_classes[test_labels[i[0]]])
+  plt.xlabel("Predicao:"+nomes_das_classes[np.argmax(i[1])])
+  plt.show()
+"""
+
+#reduzindo a quantidade de elementos para plotar
+from random import *
+quantidade_itens_para_mostrar = 5
+numero_aleatorio = randint(quantidade_itens_para_mostrar, (len(test_images)-quantidade_itens_predicao) )#gerando um numero aleatrio que não ultrapasse o tamanho do vetor
+
+imagens_teste_reduzido = test_images[numero_aleatorio:numero_aleatorio+quantidade_itens_predicao]#separando um trecho sequencial do teste
+respostas_imagens_teste_reduzido = test_labels[numero_aleatorio:numero_aleatorio+quantidade_itens_predicao]#e separando o trecho correspondente nas respostas
+predicao_reduzida = predicao[numero_aleatorio:numero_aleatorio+quantidade_itens_predicao]#e na predicao
+
+#Uma vizualização amigavel sobre as predições feitas
+for i in enumerate(predicao_reduzida):
+  plt.grid(False)
+  plt.imshow(imagens_teste_reduzido[i[0]],cmap=plt.cm.binary)
+  plt.title("Classe:"+nomes_das_classes[respostas_imagens_teste_reduzido[i[0]]])
+  plt.xlabel("Predicao:"+nomes_das_classes[np.argmax(i[1])])
   plt.show()
