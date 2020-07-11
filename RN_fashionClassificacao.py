@@ -9,19 +9,19 @@ from tensorflow import keras
 import numpy as np
 import matplotlib.pyplot as plt
 
-dataset = keras.datasets.fashion_mnist
+dataset = keras.datasets.fashion_mnist #Importando o dataset do modulo keras
 
-(imagens_para_treino, train_labels), (test_images, test_labels) = dataset.load_data()
+(imagens_para_treino, train_labels), (test_images, test_labels) = dataset.load_data() #Separando os dados
 
-nomes_das_classes = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+nomes_das_classes = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot'] #Utilização dos indices de cada classe para sua representação
 
-imagens_para_treino = imagens_para_treino / 255.0
-test_images = test_images/255.0
+imagens_para_treino = imagens_para_treino / 255.0 #Normamlizando os valores de cada elemento(paradigma funcional -> para cada elemento de imagensparatreino dividir por 255)
+test_images = test_images/255.0 #Idem
 
 modelo_rede_neural = keras.Sequential([
-    keras.layers.Flatten(input_shape=(28,28)),
-    keras.layers.Dense(128,activation="relu"),
-    keras.layers.Dense(10,activation="softmax")
+    keras.layers.Flatten(input_shape=(28,28)), #Primeira camada recebera (28,28) e sera transformada em uma entrada 28x28(de entrada)
+    keras.layers.Dense(128,activation="relu"), #Segunda camada "totalmente conectada" com 128 nos
+    keras.layers.Dense(10,activation="softmax") #Terceira camada(de saida) com 10 nos(correspondentes a cada classe)
     ])
 
 modelo_rede_neural.compile(optimizer="adam",loss="sparse_categorical_crossentropy",metrics=["accuracy"])
