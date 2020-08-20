@@ -1,2 +1,2 @@
-# Codigos em python
-alguns scripts escritos e/ou editado por mim 
+# Scripts em python sobre aprendizado de maquina
+alguns scripts que criei enquanto fazia alguns tutoriais de ML e DL
